@@ -7,3 +7,4 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=False)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
