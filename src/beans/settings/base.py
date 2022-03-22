@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'beans.apps.base',
+    'beans.apps.coffee',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'beans.apps.base.models.User'
+AUTH_USER_MODEL = 'base.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
