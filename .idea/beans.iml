@@ -26,6 +26,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/src/beans/templates" />
+        <option value="$MODULE_DIR$/src/beans/apps/base/templates" />
       </list>
     </option>
   </component>
