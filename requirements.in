@@ -1,0 +1,6 @@
+-e file:.
+
+# General
+Django==4.0.3
+djangorestframework==3.13.1
+requests==2.27.1
