@@ -9,5 +9,5 @@ clean_project: ## This will remove all compiled python, pycache bytecode and egg
 	find . \( -type f -name '*.pyc' -or -type d -name '__pycache__' \) -delete
 	find . \( -type d -name '.eggs' -or -type d -name '*.egg-info' -or -type d -name '.pytest_cache' \) | xargs rm -rf
 
-setup_project: ## This will install pip-tools, which is used for managing required packages
+setup_project: ## This will install pip-tools and pre-commit
 	pip install pip-tools
