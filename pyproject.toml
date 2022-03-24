@@ -3,3 +3,4 @@
 name = "cz_conventional_commits"
 version = "0.1.0"
 tag_format = "v$version"
+change_type_map = { feat = "✨ Features", fix = "🐛 Bug Fixes", refactor = "🔨 Refactor", perf = "⚡️ Performance", ci = "🛠 CI", test = "🚦 Tests" }

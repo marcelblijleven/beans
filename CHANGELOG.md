@@ -1,12 +1,14 @@
+## Unreleased
+
 ## v0.1.0 (2022-03-24)
 
-### Feat
+### ✨ Features
 
 - add aggregated data to homepage
 
 ## v0.0.1 (2022-03-24)
 
-### Feat
+### ✨ Features
 
 - add coffee
 - add coffee models and tests
@@ -17,6 +19,6 @@
 - add main html page
 - initial project setup
 
-### Fix
+### 🐛 Bug Fixes
 
 - update incorrect package reference
