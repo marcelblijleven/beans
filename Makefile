@@ -11,3 +11,6 @@ clean_project: ## This will remove all compiled python, pycache bytecode and egg
 
 setup_project: ## This will install pip-tools and pre-commit
 	pip install pip-tools
+
+release:
+	cz bump --changelog
