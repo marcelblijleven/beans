@@ -1,0 +1,12 @@
+<div class="row">
+    {% for key, item in aggregated_results.items %}
+        <div class="col-4 gy-2">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">{{ key|capfirst }}</h5>
+                    <p class="display-1">{{ item }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
