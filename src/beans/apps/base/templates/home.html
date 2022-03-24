@@ -1,6 +1,14 @@
 {% extends "main.html" %}
 {% block content %}
-<main>
-    <h1>Welcome</h1>
-</main>
+    <main>
+        <div>
+            <h1>Welcome</h1>
+            <p class="lead text-muted">To your personal coffee database</p>
+        </div>
+
+        <h5>Your stats</h5>
+        {% if request.user.is_authenticated %}
+            {% include "includes/aggregated_data_component.html" %}
+        {% endif %}
+    </main>
 {% endblock %}
