@@ -13,3 +13,12 @@ To run locally for testing, run
 python manage.py migrate
 python manage.py runserver
 ```
+
+## Versioning
+Beans uses semantic versioning where the version bumps are based on commit messages.
+To create a new release, do the following on the `master` branch:
+
+```bash
+cz bump --changelog  # important to add the changelog flag
+git push --follow-tags origin master
+```
