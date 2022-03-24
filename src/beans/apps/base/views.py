@@ -5,12 +5,19 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 
 from beans.apps.base.forms import RegistrationForm
+from beans.apps.base.utils import get_aggregated_results
 
 
 def home_view(request: HttpRequest) -> HttpResponse:
     context = {
         "page": "home",
+        "aggregated_results": {}
     }
+
+    if request.user.is_authenticated:
+        user = request.user
+        context["aggregated_results"] = get_aggregated_results(user)
+
     return render(request, "home.html", context=context)
 
 
