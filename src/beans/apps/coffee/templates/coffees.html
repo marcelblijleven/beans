@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% block content %}
+    <main>
+        <h1>Coffees</h1>
+        <div>
+            <a href="{% url "add-coffee" %}" class="btn btn-primary mt-3">Add coffee</a>
+        </div>
+        <h3 class="mt-3">Your coffees{% if query %} that match "{{ query }}" <a href="{% url "coffee-list" %}" class="text-muted">see all</a>{% endif %}</h3>
+        <p></p>
+        {% include "includes/coffee_list_component.html" %}
+    </main>
+{% endblock %}

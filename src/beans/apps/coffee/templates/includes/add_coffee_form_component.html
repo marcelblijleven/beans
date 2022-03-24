@@ -1,0 +1,42 @@
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="coffee-name">Coffee name</label>
+        <input id="coffee-name" name="name" type="text" class="form-control" placeholder="What is the name of the coffee?" required>
+    </div>
+    <div class="form-group">
+        <label for="coffee-country">Country</label>
+        <input id="coffee-country" name="country" class="form-control" list="coffee-countries" placeholder="Where did the beans grow?"
+               required>
+        <datalist id="coffee-countries">
+            {% for country in countries %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label for="coffee-processing">Processing</label>
+        <input id="coffee-processing" name="processing" class="form-control" list="coffee-processing-list" placeholder="How was it processed?"
+               required>
+        <datalist id="coffee-processing-list">
+            {% for processing in existing_processing %}
+                <option value="{{ processing.name }}">{{ processing.name }}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label for="coffee-roaster">Roaster</label>
+        <input id="coffee-roaster" name="roaster" class="form-control" list="coffee-roaster-list" placeholder="Who was the roaster?" required>
+        <datalist id="coffee-roaster-list">
+            {% for roaster in existing_roasters %}
+                <option value="{{ roaster.name }}">{{ roaster.name }}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label for="coffee-roasting-date">Roasting date</label>
+        <input id="coffee-roasting-date" name="roasting_date" type="date" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Add coffee</button>
+    <a href="{% url "coffee-list" %}" class="btn btn-danger mt-3">Cancel</a>
+</form>

@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block content %}
+    <main>
+        <a href="{% url "coffee-list" %}" class="link-secondary">Back to coffees</a>
+        <div>
+            <h1>{{ coffee.name }}
+            {% if coffee.rating %}
+                <small>{% for num in rating_range %}★️{% endfor %}</small>
+            {% endif %}
+            </h1>
+            <p class="lead text-muted">roasted on {{ coffee.roasting_date|date }}</p>
+        </div>
+        <a href="" class="btn btn-primary">Edit</a>
+        <div class="row">
+            <div class="col-sm-6 gy-3">
+                <div id="roaster" class="card">
+                    <div class="card-header">Information</div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            {% for key, value in information.items %}
+                                <tr>
+                                    <td class="fw-bold">{{ key }}</td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 gy-3">
+                <div id="roaster" class="card" style="height: 100%">
+                    <div class="card-header">Roaster</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ coffee.roaster.name }}
+                        </p>
+                        {% if coffee.roaster.country %}<p class="card-text">{{ coffee.roaster.country }}</p>{% endif %}
+                        {% if coffee.roaster.website %}<a class="card-text">{{ coffee.roaster.website }}</a>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,4 +1,6 @@
 # Beans
+![beans](https://github.com/marcelblijleven/beans/actions/workflows/tests.yml/badge.svg)
+
 A logging tool for specialty coffee ☕️
 
 ## Get started

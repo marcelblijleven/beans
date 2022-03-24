@@ -1,0 +1,24 @@
+{% if coffee_list %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Roasting date</th>
+            <th class="d-none d-lg-table-cell" scope="col">Roaster</th>
+            <th class="d-none d-lg-table-cell" scope="col">Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for coffee in coffee_list %}
+            <tr>
+                <th scope="row"><a href="{% url "coffee-detail" coffee.id %}" class="link-dark">{{ coffee.name }}</a></th>
+                <td>{{ coffee.roasting_date|date }}</td>
+                <td class="d-none d-lg-table-cell">{{ coffee.roaster.name }}</td>
+                <td class="d-none d-lg-table-cell">{% if coffee.country_flag %}{{ coffee.country_flag }} {% endif %}{{ coffee.country }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No coffees found</p>
+{% endif %}
