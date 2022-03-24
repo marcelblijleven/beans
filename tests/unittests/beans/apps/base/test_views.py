@@ -1,19 +1,37 @@
 import pytest
+from django.shortcuts import render
 from pytest_mock import MockFixture
 
 from beans.apps.base.forms import RegistrationForm
-from beans.apps.base.models import User
 from beans.apps.base.views import home_view, login_view, logout_view, register_view
 
 
-def test_home_view(rf, mocker: MockFixture):
-    mock_render = mocker.patch("beans.apps.base.views.render")
+def test_home_view(request_with_anonymous_user, mocker: MockFixture):
+    mock_render = mocker.patch("beans.apps.base.views.render", wraps=render)
+    home_view(request_with_anonymous_user)
+    expected_context = {
+        "page": "home",
+        "aggregated_results": {},
+    }
+    mock_render.assert_called_with(request_with_anonymous_user, "home.html", context=expected_context)
+
+
+def test_home_view_logged_in_user(rf, user_with_one_coffee, mocker: MockFixture):
+    mock_render = mocker.patch("beans.apps.base.views.render", wraps=render)
     request = rf.request()
+    request.user = user_with_one_coffee
 
     home_view(request)
+
     expected_context = {
-        "page": "home"
+        "page": "home",
+        "aggregated_results": {
+            "coffee": 1,
+            "origins": 1,
+            "roasters": 1,
+        }
     }
+
     mock_render.assert_called_with(request, "home.html", context=expected_context)
 
 
