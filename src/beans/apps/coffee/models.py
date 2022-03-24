@@ -28,6 +28,9 @@ class Roaster(TimeStampedModel):
     country = models.CharField(max_length=80)
     website = models.URLField(null=True)
 
+    class Meta:
+        ordering = ("name", )
+
 
 class TastingNote(TimeStampedModel):
     constraints = [
