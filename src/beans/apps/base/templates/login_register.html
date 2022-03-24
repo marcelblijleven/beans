@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <main>
+        <h1>{% if page == "login" %}Login{% else %}Register{% endif %}</h1>
+        <div>
+            {% if page == "login" %}
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input name="email" type="text" class="form-control"
+                               placeholder="Email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" class="form-control"
+                               placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </div>
+                </form>
+            {% else %}
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

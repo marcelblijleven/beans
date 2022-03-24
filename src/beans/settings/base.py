@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     'beans.apps.base',
     'beans.apps.coffee',
@@ -124,9 +128,65 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+COUNTRIES_OVERRIDE = {
+    "UN": _("Unknown")
+}
+
+COUNTRIES_FIRST = ["UN"]
+COUNTRIES_FILTER = [
+    "AO",
+    "BO",
+    "BI",
+    "CF",
+    "CN",
+    "CR",
+    "CU",
+    "DO",
+    "ET",
+    "GA",
+    "GH",
+    "GT",
+    "GN",
+    "HT",
+    "HN",
+    "IN",
+    "ID",
+    "JM",
+    "KE",
+    "LR",
+    "MW",
+    "MX",
+    "NI",
+    "NG",
+    "PA",
+    "PG",
+    "PY",
+    "PE",
+    "PH",
+    "RW",
+    "SL",
+    "SV",
+    "TH",
+    "TG",
+    "TT",
+    "UG",
+    "VE",
+    "YE",
+    "ZM",
+    "ZW",
+]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

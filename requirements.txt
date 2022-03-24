@@ -18,6 +18,8 @@ django==4.0.3
     # via
     #   -r requirements.in
     #   djangorestframework
+django-countries==7.3.2
+    # via -r requirements.in
 djangorestframework==3.13.1
     # via -r requirements.in
 idna==3.3
@@ -51,5 +53,7 @@ sqlparse==0.4.2
     # via django
 tomli==2.0.1
     # via pytest
+typing-extensions==4.1.1
+    # via django-countries
 urllib3==1.26.9
     # via requests

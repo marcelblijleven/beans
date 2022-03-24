@@ -4,29 +4,27 @@ from datetime import datetime
 
 from django.db import IntegrityError
 
-from beans.apps.coffee.models import Beans, OriginCountry, Roaster, Processing
+from beans.apps.coffee.models import Coffee, Roaster, Processing
 
 
 @pytest.mark.django_db
-def test_beans_constraint():
-    country = OriginCountry.objects.create(
-        name="Ethiopia",
-        continent="AF",
-    )
-
+def test_beans_constraint(logged_in_user):
     roaster = Roaster.objects.create(
+        user=logged_in_user,
         name="Specialty Coffee Roasters",
-        country="NL",
+        country="The Netherlands",
     )
 
     processing = Processing.objects.create(
+        user=logged_in_user,
         name="Natural",
     )
 
     date = datetime.now().date()
-    _ = Beans.objects.create(
+    _ = Coffee.objects.create(
+        user=logged_in_user,
         name="Yirgacheffe",
-        country=country,
+        country="Ethiopia",
         processing=processing,
         roaster=roaster,
         roasting_date=date,
@@ -34,13 +32,14 @@ def test_beans_constraint():
     )
 
     with pytest.raises(IntegrityError) as exc_info:
-        Beans.objects.create(
+        Coffee.objects.create(
+            user=logged_in_user,
             name="Yirgacheffe",
-            country=country,
+            country="Ethiopia",
             processing=processing,
             roaster=roaster,
             roasting_date=date,
             rating=1,
         )
 
-    assert str(exc_info.value) == "UNIQUE constraint failed: coffee_beans.name, coffee_beans.country_id, coffee_beans.roaster_id, coffee_beans.roasting_date, coffee_beans.processing_id"
+    assert "UNIQUE constraint failed" in str(exc_info.value)

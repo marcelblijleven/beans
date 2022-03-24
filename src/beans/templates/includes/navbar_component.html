@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "home" %}">Beans</a>
+        <a class="navbar-brand" href="{% url "home" %}">Beans ☕️</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,11 +11,28 @@
                     <a class="nav-link {% if page == "home" %}active{% endif %}"
                        {% if page == "home" %}aria-current="page"{% endif %} href="{% url "home" %}">Home</a>
                 </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link {% if page == "coffee-list" %}active{% endif %}"
+                       {% if page == "coffee-list" %}aria-current="page"{% endif %} href="{% url "coffee-list" %}">Coffees</a>
+                </li>
+            {% endif %}
             </ul>
-{#            <form method="get" action="{% url "coffee" %}" class="d-flex">#}
-{#                <input name="q" class="form-control me-2" type="search" placeholder="Search for coffee" aria-label="Search">#}
-{#                <button class="btn btn-outline-success" type="submit">Search</button>#}
-{#            </form>#}
+            {% if request.user.is_authenticated %}
+                <form method="get" action="{% url "coffee-list" %}" class="d-flex">
+                    <input name="q" class="form-control me-2" type="search" placeholder="Search for coffee" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            {% endif %}
+            <ul class="navbar-nav pull-right">
+                <li class="nav-link">
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="{% url "logout" %}">Logout</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url "login" %}">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

@@ -27,6 +27,7 @@
       <list>
         <option value="$MODULE_DIR$/src/beans/templates" />
         <option value="$MODULE_DIR$/src/beans/apps/base/templates" />
+        <option value="$MODULE_DIR$/src/beans/apps/coffee/templates" />
       </list>
     </option>
   </component>
