@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: release
+        uses: actions/create-release@v1
         id: create-release
         with:
           draft: false
