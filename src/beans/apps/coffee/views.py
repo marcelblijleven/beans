@@ -102,6 +102,20 @@ def coffee_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, "coffee_detail.html", context=context)
 
 
+@login_required(login_url="/login")
+def roaster_list_view(request: HttpRequest) -> HttpResponse:
+    roaster_list = request.user.roaster_set.all().order_by()
+
+    context = {
+        "page": "coffee-list",
+        "roaster_list": roaster_list,
+    }
+
+    return render(request, "roasters.html", context=context)
+
+
+
+
 def get_detail_information(coffee: Coffee) -> dict[str, str]:
     return {
         "Country": coffee.country,
