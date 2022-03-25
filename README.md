@@ -22,6 +22,6 @@ To create a new release, do the following on the `master` branch:
 make install
 ```
 
-After the `make install` command you still need to push the tag to the remote using `git push --tags`.
+After the `make install` command you still need to push the tag to the remote using `git push --follow-tags`.
 
 If you want to make a prerelease, use `cz bump --changelog --prerelease beta` instead.
