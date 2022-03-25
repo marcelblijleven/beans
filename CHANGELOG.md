@@ -1,3 +1,13 @@
+## v0.4.0 (2022-03-25)
+
+### ✨ Features
+
+- sort coffees and roasters based on name and occurences
+
+### 🐛 Bug Fixes
+
+- incorrect count after order_by on queryset
+
 ## v0.3.0 (2022-03-25)
 
 ### ✨ Features
