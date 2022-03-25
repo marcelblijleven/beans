@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+    <main>
+        <div>
+            <h1>Roasters</h1>
+            <p class="lead text-muted">Your list of roasters</p>
+        </div>
+        <div>
+            <a href="{% url "add-roaster" %}" class="btn btn-primary mt-3">Add roaster</a>
+        </div>
+        <h3 class="mt-3">Your roasters</h3>
+        {% include "includes/roaster_list_component.html" %}
+    </main>
+{% endblock %}

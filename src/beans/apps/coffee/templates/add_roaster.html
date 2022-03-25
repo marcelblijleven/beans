@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <main>
+        <a href="{% url "roaster-list" %}" class="link-secondary">Back to roasters</a >
+        <div>
+            <h1>Coffees</h1>
+            <p class="lead text-muted">Your list of coffees</p>
+        </div>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary mt-3">Add roaster</button>
+            <a href="{% url "coffee-list" %}" class="btn btn-danger mt-3">Cancel</a>
+        </form>
+    </main>
+{% endblock %}

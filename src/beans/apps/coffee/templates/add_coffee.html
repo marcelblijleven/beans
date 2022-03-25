@@ -1,4 +1,11 @@
 {% extends "main.html" %}
 {% block content %}
-    {% include "includes/add_coffee_form_component.html" %}
+    <main>
+        <a href="{% url "roaster-list" %}" class="link-secondary">Back to coffees</a>
+        <div>
+            <h1>Add coffee</h1>
+            <p class="lead text-muted">Add a new coffee to your collection</p>
+        </div>
+        {% include "includes/add_coffee_form_component.html" %}
+    </main>
 {% endblock %}

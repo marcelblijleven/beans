@@ -7,7 +7,7 @@ from django_countries.fields import Country
 
 from beans.apps.base.models import User
 from beans.apps.coffee.exceptions import CoffeeException
-from beans.apps.coffee.forms import AddCoffeeForm
+from beans.apps.coffee.forms import AddCoffeeForm, AddRoasterForm
 from beans.apps.coffee.countries import OriginCountries
 from beans.apps.coffee.models import Processing, Roaster, Coffee
 
@@ -107,13 +107,34 @@ def roaster_list_view(request: HttpRequest) -> HttpResponse:
     roaster_list = request.user.roaster_set.all().order_by()
 
     context = {
-        "page": "coffee-list",
+        "page": "roaster-list",
         "roaster_list": roaster_list,
     }
 
     return render(request, "roasters.html", context=context)
 
 
+@login_required(login_url="/login")
+def add_roaster_view(request: HttpRequest) -> HttpResponse:
+    context = {
+        "page": "add-roaster",
+        "form": AddRoasterForm()
+    }
+
+    if request.method == "POST":
+        form = AddRoasterForm(request.POST)
+        context["form"] = form
+
+        if form.is_valid():
+            roaster = form.save(commit=False)
+            roaster.user = request.user
+            roaster.save()
+            return redirect("roaster-list")
+        else:
+            messages.error(request, "An error occurred while processing the form")
+            # TODO: return errors to frontend
+
+    return render(request, "add_roaster.html", context=context)
 
 
 def get_detail_information(coffee: Coffee) -> dict[str, str]:

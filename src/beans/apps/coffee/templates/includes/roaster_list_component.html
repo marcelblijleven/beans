@@ -1,0 +1,24 @@
+{% if roaster_list %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Coffees</th>
+            <th class="d-none d-lg-table-cell" scope="col">Country</th>
+            <th class="d-none d-lg-table-cell" scope="col">Website</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for roaster in roaster_list %}
+            <tr>
+                <th scope="row">{{ roaster.name }}</th>
+                <td>{{ roaster.coffee_set.count }}</td>
+                <td class="d-none d-lg-table-cell">{% if roaster.country_flag %}{{ roaster.country_flag }} {% endif %}{{ roaster.country }}</td>
+                <td class="d-none d-lg-table-cell">{% if roaster.website %}{{ roaster.website }}{% else %}-{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No roasters found</p>
+{% endif %}
