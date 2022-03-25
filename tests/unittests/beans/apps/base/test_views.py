@@ -11,7 +11,6 @@ def test_home_view(request_with_anonymous_user, mocker: MockFixture):
     home_view(request_with_anonymous_user)
     expected_context = {
         "page": "home",
-        "aggregated_results": {},
     }
     mock_render.assert_called_with(request_with_anonymous_user, "home.html", context=expected_context)
 
@@ -25,11 +24,6 @@ def test_home_view_logged_in_user(rf, user_with_one_coffee, mocker: MockFixture)
 
     expected_context = {
         "page": "home",
-        "aggregated_results": {
-            "coffee": 1,
-            "origins": 1,
-            "roasters": 1,
-        }
     }
 
     mock_render.assert_called_with(request, "home.html", context=expected_context)
@@ -40,9 +34,7 @@ def test_login_view(request_with_anonymous_user, mocker: MockFixture):
 
     login_view(request_with_anonymous_user)
 
-    expected_context = {
-        "page": "login"
-    }
+    expected_context = {"page": "login"}
     mock_render.assert_called_with(request_with_anonymous_user, "login_register.html", context=expected_context)
 
 
@@ -130,11 +122,14 @@ def test_registration_view_post_form(rf, mocker: MockFixture, anonymous_user, dj
     mock_redirect = mocker.patch("beans.apps.base.views.redirect")
     mock_login = mocker.patch("beans.apps.base.views.login")
 
-    request = rf.post("/register", data={
-        "email": "test@email.com",
-        "password1": "testpassword",
-        "password2": "testpassword",
-    })
+    request = rf.post(
+        "/register",
+        data={
+            "email": "test@email.com",
+            "password1": "testpassword",
+            "password2": "testpassword",
+        },
+    )
 
     user = django_user_model.objects.create(
         email="test@email.com",
@@ -158,11 +153,14 @@ def test_registration_view_post_form_invalid_form(rf, mocker: MockFixture, anony
     mock_render = mocker.patch("beans.apps.base.views.render")
     mock_login = mocker.patch("beans.apps.base.views.login")
 
-    request = rf.post("/register", data={
-        "email": "test@email.com",
-        "password1": "testpassword",
-        "password2": "testpassword",
-    })
+    request = rf.post(
+        "/register",
+        data={
+            "email": "test@email.com",
+            "password1": "testpassword",
+            "password2": "testpassword",
+        },
+    )
 
     user = django_user_model.objects.create(
         email="test@email.com",
