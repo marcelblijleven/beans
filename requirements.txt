@@ -33,6 +33,8 @@ factory-boy==3.2.1
     # via -r requirements.in
 faker==13.3.3
     # via factory-boy
+gunicorn==20.1.0
+    # via -r requirements.in
 idna==3.3
     # via requests
 iniconfig==1.1.1
@@ -41,6 +43,8 @@ packaging==21.3
     # via pytest
 pluggy==1.0.0
     # via pytest
+psycopg2==2.9.3
+    # via -r requirements.in
 py==1.11.0
     # via pytest
 pyparsing==3.0.7
@@ -72,3 +76,6 @@ typing-extensions==4.1.1
     # via django-countries
 urllib3==1.26.9
     # via requests
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
