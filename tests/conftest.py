@@ -1,5 +1,6 @@
 import os
 
+import factory.random
 import pytest
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
@@ -9,15 +10,18 @@ from beans.apps.coffee.models import TastingNote
 
 
 @pytest.fixture(scope="session", autouse=True)
+def set_faker_seed():
+    factory.random.reseed_random("beans.application")
+
+
+@pytest.fixture(scope="session", autouse=True)
 def set_django_secret():
     os.environ["DJANGO_SECRET_KEY"] = "t0ps3cr3t-key"
 
 
 @pytest.fixture()
 def logged_in_user() -> User:
-    user, created = User.objects.get_or_create(
-        email="testuser@mail.com"
-    )
+    user, created = User.objects.get_or_create(email="testuser@mail.com")
 
     return user
 

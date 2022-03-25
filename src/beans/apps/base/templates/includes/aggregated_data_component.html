@@ -1,12 +1,69 @@
+{% load queryset_tags %}
 <div class="row">
-    {% for key, item in aggregated_results.items %}
-        <div class="col-4 gy-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">{{ key|capfirst }}</h5>
-                    <p class="display-1">{{ item }}</p>
+    <div class="col-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Coffee</h5>
+                <p class="display-1">{{ request.user.coffee_set.count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Origins</h5>
+                <p class="display-1">{{ request.user.coffee_set|count_distinct_fields:"country" }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Roaster</h5>
+                <p class="display-1">{{ request.user.roaster_set.count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 gy-3">
+        <div class="card" style="height: 100%;">
+            <div class="card-header text-center">
+                Top origins
+            </div>
+            <div class="card-body">
+                <div class="text-left">
+                    {% if request.user.coffee_set %}
+                        <ol>
+                            {% for origin in request.user.coffee_set|get_most_common_origins:5 %}
+                                <li>{{ origin.country }} (<span class="text-muted">{{ origin.count }})</span></li>
+                            {% endfor %}
+                        </ol>
+                    {% else %}
+                        <p>No origins yet</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    {% endfor %}
+    </div>
+    <div class="col-6 gy-3">
+        <div class="card" style="height: 100%;">
+            <div class="card-header text-center">
+                Top roasters
+            </div>
+            <div class="card-body">
+                <div class="text-left">
+                    {% if request.user.roaster_set %}
+                        <ol>
+                            {% for item in request.user.coffee_set|get_most_common_roasters:5 %}
+                                <li>{{ item.roaster__name }} (<span class="text-muted">{{ item.count }})</span></li>
+                            {% endfor %}
+                        </ol>
+                    {% else %}
+                        <p>No roasters yet</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
