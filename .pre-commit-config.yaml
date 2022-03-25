@@ -14,4 +14,8 @@ repos:
     stages:
     - commit-msg
   repo: https://github.com/commitizen-tools/commitizen
-  rev: master
+  rev: v2.21.2
+- hooks:
+  - id: flake8
+  repo: https://github.com/pycqa/flake8
+  rev: 4.0.1
