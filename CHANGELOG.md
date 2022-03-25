@@ -1,4 +1,9 @@
-## Unreleased
+## v0.2.0 (2022-03-25)
+
+### ✨ Features
+
+- add roasters page
+- add roaster list view
 
 ## v0.1.0 (2022-03-24)
 
