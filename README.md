@@ -19,6 +19,9 @@ Beans uses semantic versioning where the version bumps are based on commit messa
 To create a new release, do the following on the `master` branch:
 
 ```bash
-cz bump --changelog  # important to add the changelog flag
-git push --follow-tags origin master
+make install
 ```
+
+After the `make install` command you still need to push the tag to the remote using `git push --tags`.
+
+If you want to make a prerelease, use `cz bump --changelog --prerelease beta` instead.
