@@ -22,8 +22,8 @@ def test_get_most_common_origins(db):
     query_set = get_most_common_origins(user.coffee_set, 5)
 
     assert query_set.count() == 2
-    assert query_set[0] == {"count": 2, "country": "Ethiopia"}
-    assert query_set[1] == {"count": 1, "country": "El Salvador"}
+    assert query_set[0] == {"count": 2, "country": "Ethiopia", "origin": "Ethiopia"}
+    assert query_set[1] == {"count": 1, "country": "El Salvador", "origin": "El Salvador"}
 
     query_set = get_most_common_origins(user.coffee_set, 1)
 
