@@ -1,4 +1,5 @@
 [flake8]
 ignore = D100,D101,D102,D103,D104,D106,D107
+extend-ignore = E203
 max-line-length = 120
 max-complexity = 10
