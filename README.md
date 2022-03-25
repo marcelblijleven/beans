@@ -25,7 +25,7 @@ make setup_project
 ## Versioning
 Beans uses semantic versioning where the version bumps are based on commit messages.
 
-To create a new release, use the following command.
+To create a new release, use the following command:
 
 ```bash
 make release
