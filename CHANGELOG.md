@@ -1,3 +1,9 @@
+## v0.3.0 (2022-03-25)
+
+### ✨ Features
+
+- simplify home_view context and add more data to homepage
+
 ## v0.2.0 (2022-03-25)
 
 ### ✨ Features
