@@ -1,7 +1,10 @@
 {% extends "main.html" %}
 {% block content %}
     <main>
-        <h1>Coffees</h1>
+        <div>
+            <h1>Coffees</h1>
+            <p class="lead text-muted">Your list of coffees</p>
+        </div>
         <div>
             <a href="{% url "add-coffee" %}" class="btn btn-primary mt-3">Add coffee</a>
         </div>

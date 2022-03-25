@@ -28,6 +28,16 @@ class Roaster(TimeStampedModel):
     country = models.CharField(max_length=80)
     website = models.URLField(null=True)
 
+    class Meta:
+        ordering = ("name", )
+
+    @property
+    def country_flag(self) -> str:
+        if (country := get_country_by_name(self.country)) is None:
+            return ""
+
+        return country.unicode_flag
+
 
 class TastingNote(TimeStampedModel):
     constraints = [
