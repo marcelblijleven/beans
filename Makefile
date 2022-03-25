@@ -13,4 +13,10 @@ setup_project: ## This will install pip-tools and pre-commit
 	pip install pip-tools
 
 release:
-	cz bump --changelog
+	BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+	if [[ "$BRANCH" != "master" ]]; then
+	  echo 'You need to be on the master branch to be able to create a release';
+	  exit 1;
+	fi
+
+	cz bump --changelog;
