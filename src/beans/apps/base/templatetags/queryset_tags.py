@@ -13,7 +13,11 @@ def count_distinct_fields(queryset: QuerySet, field: str):
 
 @register.filter
 def get_most_common_origins(queryset: QuerySet[Coffee], limit: int):
-    return queryset.values("country").annotate(count=Count("country")).order_by("-count", "name")[:limit]
+    return (
+        queryset.values("country")
+        .annotate(origin=F("country"), count=Count("country"))
+        .order_by("-count", "origin")[:limit]
+    )
 
 
 @register.filter

@@ -35,8 +35,8 @@
                 <div class="text-left">
                     {% if request.user.coffee_set %}
                         <ol>
-                            {% for origin in request.user.coffee_set|get_most_common_origins:5 %}
-                                <li>{{ origin.country }} (<span class="text-muted">{{ origin.count }})</span></li>
+                            {% for item in request.user.coffee_set|get_most_common_origins:5 %}
+                                <li>{{ item.origin }} (<span class="text-muted">{{ item.count }})</span></li>
                             {% endfor %}
                         </ol>
                     {% else %}
