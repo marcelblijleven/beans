@@ -3,7 +3,8 @@ from beans.apps.base.templatetags.queryset_tags import (
     get_most_common_origins,
     get_most_common_roasters,
 )
-from factories.model_factories import UserFactory, CoffeeFactory, RoasterFactory
+
+from tests.factories.model_factories import UserFactory, CoffeeFactory, RoasterFactory
 
 
 def test_count_distinct_fields(db, user_with_one_coffee):
