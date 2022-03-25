@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django_countries.fields import Country
@@ -9,7 +9,7 @@ from beans.apps.base.models import User
 from beans.apps.coffee.exceptions import CoffeeException
 from beans.apps.coffee.forms import AddCoffeeForm, AddRoasterForm
 from beans.apps.coffee.countries import OriginCountries
-from beans.apps.coffee.models import Processing, Roaster, Coffee
+from beans.apps.coffee.models import Coffee
 
 
 def process_add_coffee_form(form: AddCoffeeForm, user: User):
@@ -42,13 +42,13 @@ def coffee_list_view(request: HttpRequest) -> HttpResponse:
     if (query := request.GET.get("q", None)) is not None:
         query = query
         coffee_list = request.user.coffee_set.filter(
-            Q(name__icontains=query) |
-            Q(country__icontains=query) |
-            Q(processing__name__icontains=query) |
-            Q(roaster__name__icontains=query)
-        ).order_by("-roasting_date")
+            Q(name__icontains=query)
+            | Q(country__icontains=query)
+            | Q(processing__name__icontains=query)
+            | Q(roaster__name__icontains=query)
+        ).order_by("-roasting_date", "name")
     else:
-        coffee_list = request.user.coffee_set.all().order_by("-roasting_date")
+        coffee_list = request.user.coffee_set.all().order_by("-roasting_date", "name")
 
     context = {
         "page": "coffee-list",
@@ -104,8 +104,7 @@ def coffee_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
 
 @login_required(login_url="/login")
 def roaster_list_view(request: HttpRequest) -> HttpResponse:
-    roaster_list = request.user.roaster_set.all().order_by()
-
+    roaster_list = request.user.roaster_set.all().annotate(count=Count("coffee")).order_by("-count", "name")
     context = {
         "page": "roaster-list",
         "roaster_list": roaster_list,
@@ -116,10 +115,7 @@ def roaster_list_view(request: HttpRequest) -> HttpResponse:
 
 @login_required(login_url="/login")
 def add_roaster_view(request: HttpRequest) -> HttpResponse:
-    context = {
-        "page": "add-roaster",
-        "form": AddRoasterForm()
-    }
+    context = {"page": "add-roaster", "form": AddRoasterForm()}
 
     if request.method == "POST":
         form = AddRoasterForm(request.POST)
