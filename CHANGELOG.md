@@ -1,3 +1,15 @@
+## v0.5.0 (2022-03-28)
+
+### ✨ Features
+
+- add api
+- add api
+- add option to run app in docker with postgres
+
+### 🐛 Bug Fixes
+
+- fix broken import of factories
+
 ## v0.4.0 (2022-03-25)
 
 ### ✨ Features
