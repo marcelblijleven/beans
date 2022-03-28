@@ -2,11 +2,23 @@ import os
 
 import factory.random
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
 
+from rest_framework.test import APIRequestFactory
+
+from faker import Faker
+from faker.providers import person
+
 from beans.apps.base.models import User
 from beans.apps.coffee.models import TastingNote
+from tests.factories.model_factories import UserFactory, ProcessingFactory, RoasterFactory, CoffeeFactory
+
+
+@pytest.fixture()
+def api_rf() -> APIRequestFactory:
+    return APIRequestFactory()
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -17,6 +29,21 @@ def set_faker_seed():
 @pytest.fixture(scope="session", autouse=True)
 def set_django_secret():
     os.environ["DJANGO_SECRET_KEY"] = "t0ps3cr3t-key"
+
+
+@pytest.fixture()
+def setup_one_coffee():
+    user = UserFactory.create()
+    processing = ProcessingFactory.create(user=user)
+    roaster = RoasterFactory.create(user=user)
+    CoffeeFactory.create(user=user, processing=processing, roaster=roaster, country="Lesotho")
+
+
+@pytest.fixture()
+def faker_person():
+    faker = Faker()
+    faker.add_provider(person)
+    return faker
 
 
 @pytest.fixture()
