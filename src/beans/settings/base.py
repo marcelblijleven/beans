@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "beans.apps.base",
     "beans.apps.coffee",
+    "beans.apps.impex",
 ]
 
 MIDDLEWARE = [
