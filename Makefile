@@ -13,4 +13,5 @@ setup_project: ## This will install pip-tools and pre-commit
 	pip install pip-tools
 
 release:
-	cz bump --changelog
+	cz bump --changelog --annotated-tag
+	echo "Make sure to push the release using 'git push --follow-tags origin master'"
