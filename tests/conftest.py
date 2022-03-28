@@ -13,7 +13,7 @@ from faker.providers import person
 
 from beans.apps.base.models import User
 from beans.apps.coffee.models import TastingNote
-from factories.model_factories import UserFactory, ProcessingFactory, RoasterFactory, CoffeeFactory
+from tests.factories.model_factories import UserFactory, ProcessingFactory, RoasterFactory, CoffeeFactory
 
 
 @pytest.fixture()
