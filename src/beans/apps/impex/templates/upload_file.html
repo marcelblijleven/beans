@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <main>
+        <a href="{% url "roaster-list" %}" class="link-secondary">Back to coffees</a>
+        <div>
+            <h1>Upload</h1>
+            <p class="lead text-muted">Bulk upload coffees</p>
+        </div>
+        <p>
+            Download a template csv file <a href="{% url "download-template" %}">from here</a>
+        </p>
+
+        <form enctype="multipart/form-data" method="post" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">Upload</button>
+        </form>
+    </main>
+{% endblock %}
