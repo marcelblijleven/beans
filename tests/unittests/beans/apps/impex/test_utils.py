@@ -13,7 +13,7 @@ from beans.apps.impex.utils import (
     get_tasting_notes,
     get_csv_headers,
 )
-from factories.model_factories import UserFactory
+from tests.factories.model_factories import UserFactory
 
 
 DUMMY_ROW = {
