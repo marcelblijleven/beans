@@ -2,7 +2,7 @@ from factory.django import DjangoModelFactory
 from factory.faker import Faker
 
 from beans.apps.base.models import User
-from beans.apps.coffee.models import Coffee, Processing, Roaster
+from beans.apps.coffee.models import Coffee, Processing, Roaster, TastingNote
 
 
 class UserFactory(DjangoModelFactory):
@@ -34,3 +34,8 @@ class CoffeeFactory(DjangoModelFactory):
 
     class Meta:
         model = Coffee
+
+
+class TastingNoteFactory(DjangoModelFactory):
+    class Meta:
+        model = TastingNote

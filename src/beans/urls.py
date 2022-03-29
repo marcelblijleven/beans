@@ -22,8 +22,9 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("beans.apps.base.urls")),
-    path("coffees/", include("beans.apps.coffee.urls")),
     path("api/", include("beans.apps.coffee.api.urls")),
+    path("coffees/", include("beans.apps.coffee.urls")),
+    path("impex/", include("beans.apps.impex.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

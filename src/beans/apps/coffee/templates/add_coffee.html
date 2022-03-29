@@ -1,11 +1,14 @@
 {% extends "main.html" %}
 {% block content %}
     <main>
-        <a href="{% url "roaster-list" %}" class="link-secondary">Back to coffees</a>
+        <a href="{% url "coffee-list" %}" class="link-secondary">Back to coffees</a>
         <div>
             <h1>Add coffee</h1>
             <p class="lead text-muted">Add a new coffee to your collection</p>
         </div>
+        <p>
+            <a href="{% url "upload" %}">Click here for bulk upload</a>
+        </p>
         {% include "includes/add_coffee_form_component.html" %}
     </main>
 {% endblock %}
