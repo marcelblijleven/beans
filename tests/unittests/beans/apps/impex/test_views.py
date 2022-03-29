@@ -1,7 +1,7 @@
 from pytest_mock import MockFixture
 
 from beans.apps.impex.views import download_template_view, UploadCsvView
-from factories.model_factories import UserFactory
+from tests.factories.model_factories import UserFactory
 
 
 def test_download_template_view(rf):
