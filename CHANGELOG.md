@@ -1,3 +1,9 @@
+## v0.6.0 (2022-03-29)
+
+### ✨ Features
+
+- add csv file upload
+
 ## v0.5.0 (2022-03-28)
 
 ### ✨ Features

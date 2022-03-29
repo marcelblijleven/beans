@@ -1,7 +1,7 @@
 [tool]
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.5.0"
+version = "0.6.0"
 tag_format = "v$version"
 change_type_map = { feat = "✨ Features", fix = "🐛 Bug Fixes", refactor = "🔨 Refactor", perf = "⚡️ Performance", ci = "🛠 CI", test = "🚦 Tests" }
 
