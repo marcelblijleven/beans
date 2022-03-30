@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
+    {% include "includes/delete.html" with coffee=coffee %}
     <main>
         <a href="{% url "coffee-list" %}" class="link-secondary">Back to coffees</a>
         <div>
@@ -11,6 +12,7 @@
             <p class="lead text-muted">roasted on {{ coffee.roasting_date|date }}</p>
         </div>
         <a href="" class="btn btn-primary">Edit</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
         <div class="row">
             <div class="col-sm-6 gy-3">
                 <div id="roaster" class="card">

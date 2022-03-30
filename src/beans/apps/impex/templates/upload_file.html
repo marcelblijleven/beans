@@ -11,7 +11,7 @@
             Download a template csv file <a href="{% url "download-template" %}">from here</a>
         </p>
 
-        <form enctype="multipart/form-data" method="post" action="">
+        <form enctype="multipart/form-data" method="post" action="" style="max-width: 50%;">
             {% csrf_token %}
             {{ form|crispy }}
             <button class="btn btn-primary" type="submit">Upload</button>

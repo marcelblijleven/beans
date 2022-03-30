@@ -3,28 +3,39 @@ import datetime
 import pytest
 from django.http import Http404
 from django.shortcuts import render, redirect
-from django_countries.fields import Country
 from pytest_mock import MockFixture
 
-from beans.apps.coffee.countries import OriginCountries
 from beans.apps.coffee.exceptions import CoffeeException
-from beans.apps.coffee.forms import AddCoffeeForm, AddRoasterForm
-from beans.apps.coffee.views import process_add_coffee_form, coffee_list_view, add_coffee_view, coffee_detail_view, \
-    get_detail_information, roaster_list_view, add_roaster_view
+from beans.apps.coffee.forms import AddCoffeeForm
+from beans.apps.coffee.models import Coffee
+from beans.apps.coffee.views import (
+    process_add_coffee_form,
+    coffee_list_view,
+    add_coffee_view,
+    coffee_detail_view,
+    get_detail_information,
+    roaster_list_view,
+    add_roaster_view,
+    delete_coffee_view,
+)
+from tests.factories.model_factories import UserFactory
 
 
 @pytest.mark.django_db
 def test_process_add_coffee_form(rf, django_user_model):
     user = django_user_model.objects.create(email="test@email.com")
     date = datetime.datetime.now().date()
-    request = rf.post("add/", data={
-        "name": "Coffee",
-        "country": "Ethiopia",
-        "processing": "Natural",
-        "roaster": "La Cabra",
-        "roasting_date": date,
-        "rating": 0
-    })
+    request = rf.post(
+        "add/",
+        data={
+            "name": "Coffee",
+            "country": "Ethiopia",
+            "processing": "Natural",
+            "roaster": "La Cabra",
+            "roasting_date": date,
+            "rating": 0,
+        },
+    )
 
     form = AddCoffeeForm(request.POST)
 
@@ -43,13 +54,9 @@ def test_process_add_coffee_form(rf, django_user_model):
 def test_process_add_coffee_form_invalid(rf, django_user_model):
     user = django_user_model.objects.create(email="test@email.com")
     date = datetime.datetime.now().date()
-    request = rf.post("add/", data={
-        "name": "Coffee",
-        "country": "Ethiopia",
-        "processing": "Natural",
-        "roasting_date": date,
-        "rating": 0
-    })
+    request = rf.post(
+        "add/", data={"name": "Coffee", "country": "Ethiopia", "processing": "Natural", "roasting_date": date, "rating": 0}
+    )
 
     form = AddCoffeeForm(request.POST)
 
@@ -91,9 +98,7 @@ def test_coffee_list_view(rf, user_with_one_coffee, mocker: MockFixture):
 def test_coffee_list_view_with_query(client, rf, django_user_model, mocker: MockFixture):
     mock_render = mocker.patch("beans.apps.coffee.views.render")
     user = django_user_model.objects.create(email="test@email.com", password="test")
-    request = rf.get("/coffees", data={
-        "q": "Ethiopia"
-    })
+    request = rf.get("/coffees", data={"q": "Ethiopia"})
     request.user = user
 
     processing = user.processing_set.create(name="Natural")
@@ -153,14 +158,17 @@ def test_add_coffee_view_post_form(rf, django_user_model, mocker: MockFixture):
 
     assert user.coffee_set.count() == 0
 
-    request = rf.post("/add", data={
-        "name": "Finca Santa Rosa",
-        "country": "El Salvador",
-        "processing": user.processing_set.get(name="Natural"),
-        "roaster": user.roaster_set.get(name="La Cabra"),
-        "roasting_date": "2022-02-14",
-        "rating": 4,
-    })
+    request = rf.post(
+        "/add",
+        data={
+            "name": "Finca Santa Rosa",
+            "country": "El Salvador",
+            "processing": user.processing_set.get(name="Natural"),
+            "roaster": user.roaster_set.get(name="La Cabra"),
+            "roasting_date": "2022-02-14",
+            "rating": 4,
+        },
+    )
 
     request.user = user
     form = AddCoffeeForm(request.POST)
@@ -220,12 +228,14 @@ def test_coffee_detail_view(rf, user_with_one_coffee, mocker: MockFixture):
 
     mock_detail_information.assert_called_once_with(user_with_one_coffee.coffee_set.first())
     mock_render.assert_called_once_with(
-        request, "coffee_detail.html", context={
+        request,
+        "coffee_detail.html",
+        context={
             "page": "coffee-detail-page",
             "coffee": coffee,
             "rating_range": range(4),
             "information": get_detail_information(coffee),
-        }
+        },
     )
 
 
@@ -254,8 +264,9 @@ def test_coffee_detail_view_does_not_exist(rf, user_with_one_coffee, mocker: Moc
 
 
 @pytest.mark.django_db
-def test_coffee_detail_view_does_not_exist_for_user(rf, user_with_one_coffee, secondary_user_with_one_coffee,
-                                                    mocker: MockFixture):
+def test_coffee_detail_view_does_not_exist_for_user(
+    rf, user_with_one_coffee, secondary_user_with_one_coffee, mocker: MockFixture
+):
     mock_detail_information = mocker.patch(
         "beans.apps.coffee.views.get_detail_information",
         wraps=get_detail_information,
@@ -326,11 +337,14 @@ def test_add_roaster_view_post_form(db, rf, django_user_model, mocker: MockFixtu
 
     assert user.roaster_set.count() == 0
 
-    request = rf.post("/coffee/roasters/add", data={
-        "name": "The Roasters",
-        "country": "Netherlands",
-        "website": "https://test.nl",
-    })
+    request = rf.post(
+        "/coffee/roasters/add",
+        data={
+            "name": "The Roasters",
+            "country": "Netherlands",
+            "website": "https://test.nl",
+        },
+    )
     request.user = user
 
     add_roaster_view(request)
@@ -350,10 +364,13 @@ def test_add_roaster_view_post_form_invalid_form(db, rf, django_user_model, mock
 
     assert user.roaster_set.count() == 0
 
-    request = rf.post("/coffee/roasters/add", data={
-        "name": "The Roasters",
-        "website": "https://test.nl",
-    })
+    request = rf.post(
+        "/coffee/roasters/add",
+        data={
+            "name": "The Roasters",
+            "website": "https://test.nl",
+        },
+    )
     request.user = user
 
     add_roaster_view(request)
@@ -361,10 +378,43 @@ def test_add_roaster_view_post_form_invalid_form(db, rf, django_user_model, mock
     assert user.roaster_set.count() == 0
     mock_add_roaster_form.assert_called_with(request.POST)
     mock_messages.error.assert_called_once_with(request, "An error occurred while processing the form")
-    mock_render.assert_called_once_with(request, "add_roaster.html", context={
-        "form": mocked_form,
-        "page": "add-roaster",
-    })
+    mock_render.assert_called_once_with(
+        request,
+        "add_roaster.html",
+        context={
+            "form": mocked_form,
+            "page": "add-roaster",
+        },
+    )
 
 
+def test_delete_coffee_view(db, rf, setup_one_coffee, mocker: MockFixture):
+    mock_messages = mocker.patch("beans.apps.coffee.views.messages")
+    mock_redirect = mocker.patch("beans.apps.coffee.views.redirect", wraps=redirect)
 
+    assert Coffee.objects.count() == 1
+    coffee = Coffee.objects.first()
+    request = rf.request()
+    request.user = UserFactory.create()
+
+    delete_coffee_view(request, coffee.id)
+
+    assert Coffee.objects.count() == 0
+    mock_messages.info.assert_called_with(request, f"Successfully deleted {coffee.name}")
+    mock_redirect.assert_called_once_with("/coffees")
+
+
+def test_delete_coffee_view_pk_does_not_exist(db, rf, setup_one_coffee, mocker: MockFixture):
+    mock_messages = mocker.patch("beans.apps.coffee.views.messages")
+    mock_redirect = mocker.patch("beans.apps.coffee.views.redirect", wraps=redirect)
+
+    assert Coffee.objects.count() == 1
+    coffee = Coffee.objects.first()
+    request = rf.request()
+    request.user = UserFactory.create()
+
+    delete_coffee_view(request, coffee.id + 1)
+
+    assert Coffee.objects.count() == 1
+    mock_messages.info.assert_called_with(request, "Could not delete coffee because it doesn't exists")
+    mock_redirect.assert_called_once_with("/coffees")
