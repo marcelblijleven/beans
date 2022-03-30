@@ -133,6 +133,19 @@ def add_roaster_view(request: HttpRequest) -> HttpResponse:
     return render(request, "add_roaster.html", context=context)
 
 
+@login_required()
+def delete_coffee_view(request: HttpRequest, pk: int) -> HttpResponse:
+    try:
+        coffee = Coffee.objects.get(id=pk)
+        coffee.delete()
+        messages.info(request, f"Successfully deleted {coffee.name}")
+
+    except Coffee.DoesNotExist:
+        messages.info(request, "Could not delete coffee because it doesn't exists")
+
+    return redirect("/coffees")
+
+
 def get_detail_information(coffee: Coffee) -> dict[str, str]:
     return {
         "Country": coffee.country,
